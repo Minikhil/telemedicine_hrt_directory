@@ -87,6 +87,20 @@ export default function Home() {
     setFilteredClinics(filtered);
   };
 
+  const handleRatingFilter = (ratingFilter: string) => {
+    if (!clinics?.length) return;
+    if (!ratingFilter) {
+      setFilteredClinics(clinics);
+      return;
+    }
+    
+    const minRating = parseFloat(ratingFilter.split(' ')[0]);
+    const filtered = clinics.filter(clinic => 
+      clinic.rating >= minRating
+    );
+    setFilteredClinics(filtered);
+  };
+
   // Show loading state
   if (isLoading) {
     return (
@@ -128,6 +142,7 @@ export default function Home() {
           onSearch={handleSearch}
           onStateFilter={handleStateFilter}
           onPriceFilter={handlePriceFilter}
+          onRatingFilter={handleRatingFilter}
         />
 
         {/* Clinics Grid */}
